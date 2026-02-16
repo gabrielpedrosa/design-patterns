@@ -1,44 +1,41 @@
 import { EconomicDelivery } from "./strategies/economic-delivery";
 import { ExpressDelivery } from "./strategies/express-delivery";
+import { IDelivery } from "./strategies/i-delivery-type";
 import { ScheduleDelivery } from "./strategies/schedule-delivery";
 
-type DeliveryType = 'economic' | 'express' | 'schedule';
-
-
 type Order = {
-    distance: number;
-    weight: number;
-    orderPrice: number;
-}
+  distance: number;
+  weight: number;
+  orderPrice: number;
+};
 
 const order: Order = {
-    distance: 10,
-    weight: 5,
-    orderPrice: 100
-}
+  distance: 10,
+  weight: 5,
+  orderPrice: 100,
+};
 
 export class DeliveryCalculator {
-    calculate(order: Order, deliveryType: DeliveryType): number {
-        switch (deliveryType) {
-            default:
-            case 'economic':
-                return new EconomicDelivery().calculate(order.distance, order.weight, order.orderPrice);
-            case 'express':
-                return new ExpressDelivery().calculate(order.distance, order.weight, order.orderPrice);
-            case 'schedule':
-                return new ScheduleDelivery().calculate(order.distance, order.weight, order.orderPrice);
-                
-        }
-    }
+  constructor(private delivery: IDelivery) {}
 
-    main() {
-        const costEconomic = this.calculate(order, 'economic');
-        const costExpress = this.calculate(order, 'express');
-        const costSchedule = this.calculate(order, 'schedule');
-        console.log(`O custo de entrega para o tipo economic é: R$ ${costEconomic.toFixed(2)}`);
-        console.log(`O custo de entrega para o tipo express é: R$ ${costExpress.toFixed(2)}`);
-        console.log(`O custo de entrega para o tipo schedule é: R$ ${costSchedule.toFixed(2)}`);
-    }
+  calculate(order: Order): number {
+    return this.delivery.calculate(order.distance, order.weight, order.orderPrice);
+  }
+
+  setDelivery(delivery: IDelivery) {
+    this.delivery = delivery;
+  }
 }
 
-new DeliveryCalculator().main();
+const deliveryCalculator = new DeliveryCalculator(new EconomicDelivery());
+const costEconomic = deliveryCalculator.calculate(order); // Calculate using economic delivery
+
+deliveryCalculator.setDelivery(new ExpressDelivery());
+const costExpress = deliveryCalculator.calculate(order); // Calculate using express delivery
+
+deliveryCalculator.setDelivery(new ScheduleDelivery());
+const costSchedule = deliveryCalculator.calculate(order); // Calculate using schedule delivery
+
+console.log(`Economic Delivery Cost: R$ ${costEconomic.toFixed(2)}`);
+console.log(`Express Delivery Cost: R$ ${costExpress.toFixed(2)}`);
+console.log(`Schedule Delivery Cost: R$ ${costSchedule.toFixed(2)}`);
