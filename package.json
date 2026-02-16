@@ -1,0 +1,27 @@
+{
+  "name": "design-patterns",
+  "version": "1.0.0",
+  "description": "Voce trabalha em uma plataforma de entregas que acabou de lançar um novo recurso de envio. O time de produto quer testar tres estrategias de calculo de frete: economico, expresso e agendado. Cada estrategia tem regras diferentes, mas a API do checkout precisa continuar a mesma para todos os testes.",
+  "main": "index.js",
+  "scripts": {
+    "strategy": "ts-node strategy/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabrielpedrosa/design-patterns.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/gabrielpedrosa/design-patterns/issues"
+  },
+  "homepage": "https://github.com/gabrielpedrosa/design-patterns#readme",
+  "devDependencies": {
+    "@types/node": "^25.2.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
