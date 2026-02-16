@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "strategy": "ts-node strategy/index.ts",
+    "adapter": "ts-node adapter/index.ts",
     "factory": "ts-node simple-factory/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
